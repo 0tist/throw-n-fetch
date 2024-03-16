@@ -1,22 +1,29 @@
-import pigpio
+import RPi.GPIO as GPIO
+import time
 
-# Connect to the pigpio daemon
-pi = pigpio.pi("10.100.17.169", 8888)
+# Use GPIO numbers not pin numbers
+GPIO.setmode(GPIO.BCM)
 
-# Set GPIO pin connected to the motor as an output
-motor_pin = 4
-print(pigpio.OUTPUT)
-pi.set_mode(motor_pin, pigpio.OUTPUT)
+# Pin to use for the output
+pin = 4
 
-# Set PWM frequency (optional, default is 800 Hz)
-pi.set_PWM_frequency(motor_pin, 1000)  # Set PWM frequency to 1000 Hz
+# Set up the GPIO pin as an output
+GPIO.setup(pin, GPIO.OUT)
 
-# Set PWM duty cycle (0-1000)
-duty_cycle = 500  # Example duty cycle
-pi.set_PWM_dutycycle(motor_pin, duty_cycle)
+try:
+    while True:
+        # Set the pin high
+        GPIO.output(pin, GPIO.HIGH)
+        print("Pin set to high.")
+        time.sleep(1)  # Wait for 1 second
 
-# To stop the motor:
-# pi.set_PWM_dutycycle(motor_pin, 0)
+        # Set the pin low
+        GPIO.output(pin, GPIO.LOW)
+        print("Pin set to low.")
+        time.sleep(1)  # Wait for 1 second
 
-# Disconnect from the pigpio daemon when done
-pi.stop()
+except KeyboardInterrupt:
+    # Clean up GPIO on CTRL+C exit
+    GPIO.cleanup()
+
+GPIO.cleanup()  # Clean up GPIO on normal exit
