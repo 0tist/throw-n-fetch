@@ -1,7 +1,7 @@
 import pigpio
 
 # Connect to the pigpio daemon
-pi = pigpio.pi()
+pi = pigpio.pi("soft", 8888)
 
 # Set GPIO pin connected to the motor as an output
 motor_pin = 4
