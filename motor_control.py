@@ -1,36 +1,25 @@
-import RPi.GPIO as GPIO
-import time
+from gpiozero import Servo
+from time import sleep
 
-# Set the GPIO mode
-GPIO.setmode(GPIO.BCM)
-
-# Motor pins (replace with your GPIO pins)
-pinForward = 15
-pinBackward = 24
-
-# Set up the motor pins
-GPIO.setup(pinForward, GPIO.OUT)
-GPIO.setup(pinBackward, GPIO.OUT)
-
-
-# Function to control motor direction
-def motor_forward():
-    GPIO.output(pinForward, GPIO.HIGH)
-    GPIO.output(pinBackward, GPIO.LOW)
-
-
-def motor_backward():
-    GPIO.output(pinForward, GPIO.LOW)
-    GPIO.output(pinBackward, GPIO.HIGH)
-
-
-def motor_stop():
-    GPIO.output(pinForward, GPIO.LOW)
-    GPIO.output(pinBackward, GPIO.LOW)
-
+# Setup the servo on GPIO18
+servo = Servo(15)
 
 try:
     while True:
-        motor_forward()
-finally:
-    GPIO.cleanup()  # Clean up the GPIO pins on exit
+        # Move the servo to the 0 degree position (neutral)
+        servo.mid()
+        print("Servo neutral position")
+        sleep(1)
+
+        # Move the servo to the -90 degree position (maximum backward)
+        servo.min()
+        print("Servo maximum backward position")
+        sleep(1)
+
+        # Move the servo to the +90 degree position (maximum forward)
+        servo.max()
+        print("Servo maximum forward position")
+        sleep(1)
+
+except KeyboardInterrupt:
+    print("Program exited")
