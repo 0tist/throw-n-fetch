@@ -5,7 +5,7 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 # Pin to use for the output
-pin = 4
+pin = 16
 
 # Set up the GPIO pin as an output
 GPIO.setup(pin, GPIO.OUT)
