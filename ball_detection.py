@@ -63,7 +63,7 @@ while True:
     if cv2.waitKey(1) == ord('q'):
         break
     
-    """ 
+    """ foo
     # If the frame was not retrieved, break from the loop (end of video)
     if not ret:
         break
