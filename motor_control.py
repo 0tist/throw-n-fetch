@@ -1,25 +1,29 @@
-from gpiozero import Servo
-from time import sleep
+import RPi.GPIO as GPIO
+import time
 
-# Setup the servo on GPIO18
-servo = Servo(15)
+# Use GPIO numbers not pin numbers
+GPIO.setmode(GPIO.BCM)
+
+# Pin to use for the output
+pin = 15
+
+# Set up the GPIO pin as an output
+GPIO.setup(pin, GPIO.OUT)
 
 try:
     while True:
-        # Move the servo to the 0 degree position (neutral)
-        servo.mid()
-        print("Servo neutral position")
-        sleep(1)
+        # Set the pin high
+        GPIO.output(pin, GPIO.HIGH)
+        print("Pin set to high.")
+        time.sleep(1)  # Wait for 1 second
 
-        # Move the servo to the -90 degree position (maximum backward)
-        servo.min()
-        print("Servo maximum backward position")
-        sleep(1)
-
-        # Move the servo to the +90 degree position (maximum forward)
-        servo.max()
-        print("Servo maximum forward position")
-        sleep(1)
+        # Set the pin low
+        GPIO.output(pin, GPIO.LOW)
+        print("Pin set to low.")
+        time.sleep(1)  # Wait for 1 second
 
 except KeyboardInterrupt:
-    print("Program exited")
+    # Clean up GPIO on CTRL+C exit
+    GPIO.cleanup()
+
+GPIO.cleanup()  # Clean up GPIO on normal exit
