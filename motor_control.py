@@ -5,7 +5,7 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 # Motor pins (replace with your GPIO pins)
-pinForward = 23
+pinForward = 15
 pinBackward = 24
 
 # Set up the motor pins
