@@ -4,7 +4,7 @@ import pigpio
 pi = pigpio.pi()
 
 # Set GPIO pin connected to the motor as an output
-motor_pin = 18
+motor_pin = 4
 pi.set_mode(motor_pin, pigpio.OUTPUT)
 
 # Set PWM frequency (optional, default is 800 Hz)
