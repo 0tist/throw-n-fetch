@@ -32,12 +32,5 @@ def motor_stop():
 try:
     while True:
         motor_forward()
-        time.sleep(5)  # Motor runs forward for 5 seconds
-        motor_stop()
-        time.sleep(1)  # Motor stops for 1 second
-        motor_backward()
-        time.sleep(5)  # Motor runs backward for 5 seconds
-        motor_stop()
-        time.sleep(1)  # Motor stops for 1 second
 finally:
     GPIO.cleanup()  # Clean up the GPIO pins on exit
