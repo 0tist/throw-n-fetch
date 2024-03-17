@@ -1,29 +1,12 @@
-import RPi.GPIO as GPIO
-import time
+from gpiozero import Servo
+from time import sleep
 
-# Use GPIO numbers not pin numbers
-GPIO.setmode(GPIO.BCM)
+servo = Servo(4)  # GPIO pin 17
 
-# Pin to use for the output
-pin = 4
-
-# Set up the GPIO pin as an output
-GPIO.setup(pin, GPIO.OUT)
-
-try:
-    while True:
-        # Set the pin high
-        GPIO.output(pin, GPIO.HIGH)
-        print("Pin set to high.")
-        time.sleep(1)  # Wait for 1 second
-
-        # Set the pin low
-        GPIO.output(pin, GPIO.LOW)
-        print("Pin set to low.")
-        time.sleep(1)  # Wait for 1 second
-
-except KeyboardInterrupt:
-    # Clean up GPIO on CTRL+C exit
-    GPIO.cleanup()
-
-GPIO.cleanup()  # Clean up GPIO on normal exit
+while True:
+    servo.min()  # Move servo to minimum position
+    sleep(1)
+    servo.mid()  # Move servo to middle position
+    sleep(1)
+    servo.max()  # Move servo to maximum position
+    sleep(1)
