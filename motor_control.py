@@ -1,7 +1,7 @@
 from gpiozero import Servo
 from time import sleep
 
-servo = Servo(5)
+servo = Servo(4)
 
 try:
     while True:
