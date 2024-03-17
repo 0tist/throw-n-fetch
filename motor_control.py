@@ -1,21 +1,17 @@
-import RPi.GPIO as GPIO
+import pigpio
 import time
 
 servoPIN = 4
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(servoPIN, GPIO.OUT)
-
-pwm = GPIO.PWM(servoPIN, 50)  # GPIO 17 for PWM with 50Hz
-pwm.start(0)  # Initialization
+pi = pigpio.pi()  # Connect to local Pi.
 
 try:
     while True:
-        pwm.ChangeDutyCycle(2.5)  # Turn towards 0 degree
+        pi.set_servo_pulsewidth(servoPIN, 500)  # Small pulse for one direction
         time.sleep(0.5)
-        pwm.ChangeDutyCycle(7.5)  # Turn towards 90 degree
+        pi.set_servo_pulsewidth(servoPIN, 1500)  # Medium pulse for neutral position
         time.sleep(0.5)
-        pwm.ChangeDutyCycle(12.5)  # Turn towards 180 degree
+        pi.set_servo_pulsewidth(servoPIN, 2500)  # Large pulse for the other direction
         time.sleep(0.5)
 finally:
-    pwm.stop()
-    GPIO.cleanup()
+    pi.set_servo_pulsewidth(servoPIN, 0)  # Turn off pulse
+    pi.stop()
