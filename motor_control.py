@@ -1,26 +1,15 @@
+import RPi.GPIO as GPIO
 import time
 
-import RPi.GPIO as GPIO
-
-servoPIN = 5
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(servoPIN, GPIO.OUT)
-
-pwm = GPIO.PWM(servoPIN, 50)  # GPIO 4 for PWM with 50Hz
-pwm.start(0)  # Initialization
+GPIO.setup(5, GPIO.OUT)
 
 try:
     while True:
-        print("Turning towards 0 degree")
-        pwm.ChangeDutyCycle(2.5)  # Turn towards 0 degree
-        time.sleep(0.5)
-        print("Turning towards 90 degree")
-        pwm.ChangeDutyCycle(7.5)  # Turn towards 90 degree
-        time.sleep(0.5)
-        print("Turning towards 180 degree")
-        pwm.ChangeDutyCycle(12.5)  # Turn towards 180 degree
-        time.sleep(0.5)
+        # Generate a PWM signal manually
+        GPIO.output(17, True)
+        time.sleep(0.0015)  # Adjust the sleep time for the correct servo angle
+        GPIO.output(17, False)
+        time.sleep(0.02)  # Complete the cycle
 finally:
-    print("Stopping the motor")
-    pwm.stop()
     GPIO.cleanup()
