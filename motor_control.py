@@ -1,7 +1,7 @@
 import pigpio
 import time
 
-servoPIN = 4
+servoPIN = 16
 pi = pigpio.pi()  # Connect to local Pi.
 
 try:
