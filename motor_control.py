@@ -1,15 +1,15 @@
-import RPi.GPIO as GPIO
-import time
+from gpiozero import Servo
+from time import sleep
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(5, GPIO.OUT)
+servo = Servo(5)
 
 try:
     while True:
-        # Generate a PWM signal manually
-        GPIO.output(17, True)
-        time.sleep(0.0015)  # Adjust the sleep time for the correct servo angle
-        GPIO.output(17, False)
-        time.sleep(0.02)  # Complete the cycle
+        servo.min()
+        sleep(1)
+        servo.mid()
+        sleep(1)
+        servo.max()
+        sleep(1)
 finally:
-    GPIO.cleanup()
+    servo.value = None  # Reset the servo position
